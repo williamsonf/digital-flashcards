@@ -40,7 +40,7 @@ class ModuleButton(arcade.gui.UIFlatButton):
         if self.text[-8:] == " - ADDED":
             self.text = self.text.replace(" - ADDED",'')
         p = "Classes/" + TARG_COURSE + "/" + self.text + ".csv"
-        if self.text in TARG_MODULE:
+        if p in TARG_MODULE:
             TARG_MODULE.remove(p)
         else:
             TARG_MODULE.append(p)
@@ -147,7 +147,7 @@ class MainMenu(arcade.View):
                         arcade.draw_text(text=DECK.discard[DECK.curr_place][0], start_x= SCREEN_WIDTH / 2, start_y= SCREEN_HEIGHT / 2, color= arcade.color.BLACK, font_size= DEFAULT_FONT_SIZE * 2, width= SCREEN_WIDTH, anchor_x= "center", anchor_y= "center", multiline= True)
                     else: #TODO: If it is an image
                         img = arcade.load_texture(os.getcwd() + "/Classes/" + TARG_COURSE + "/images/" + DECK.discard[DECK.curr_place][0])
-                        img.draw_scaled(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+                        img.draw_scaled(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, scale= min(SCREEN_WIDTH / img.width, SCREEN_HEIGHT / img.height))
                 else: #If we're looking at the answer side
                     arcade.draw_text(text=DECK.discard[DECK.curr_place][1], start_x= SCREEN_WIDTH / 2, start_y= SCREEN_HEIGHT / 2, color= arcade.color.BLACK, font_size= DEFAULT_FONT_SIZE * 2, width= SCREEN_WIDTH, anchor_x= "center", anchor_y= "center", multiline= True)
         self.title.draw()
