@@ -7,8 +7,8 @@ import arcade, arcade.gui, os
 from flashcards import FlashcardDeck
 
 #Constants
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 1024
+SCREEN_HEIGHT = 768
 SCREEN_TITLE = "Digital Flashcards"
 DEFAULT_LINE_HEIGHT = 45
 DEFAULT_FONT_SIZE = 20
@@ -150,7 +150,8 @@ class MainMenu(arcade.View):
                         img.draw_scaled(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, scale= min(SCREEN_WIDTH / img.width, SCREEN_HEIGHT / img.height))
                 else: #If we're looking at the answer side
                     arcade.draw_text(text=DECK.discard[DECK.curr_place][1], start_x= SCREEN_WIDTH / 2, start_y= SCREEN_HEIGHT / 2, color= arcade.color.BLACK, font_size= DEFAULT_FONT_SIZE * 2, width= SCREEN_WIDTH, anchor_x= "center", anchor_y= "center", multiline= True)
-        self.title.draw()
+        if not IS_RUNNING and not self.started: #We only want to draw the title if we're not looking at cards
+            self.title.draw()
         self.manager.draw()
         if not IS_RUNNING and self.started: #If we've done setup but we're not running, reset
             self.setup()
