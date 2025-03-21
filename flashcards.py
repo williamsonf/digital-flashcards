@@ -28,7 +28,7 @@ class FlashcardDeck():
     '''
 
 
-    def __init__(self, paths):
+    def __init__(self, paths, img_mode= True):
         '''
         Constructs the deck of flashcards from a set of csv files. The flashcards
         are categorized based on the csv file they are drawn from, allowing for
@@ -50,6 +50,7 @@ class FlashcardDeck():
                 csv_reader = csv.reader(f)
                 for line in csv_reader:
                     self.card_cats[category][line[0]] = line[1:]
+        self.img_mode = img_mode
         
         self.cards = {} #Then we construct one big pile, combining all categories.            
         for cat in self.card_cats.keys():
@@ -85,7 +86,7 @@ class FlashcardDeck():
         if self.deck_count() <= 0:
             return ('No more cards! Something has gone wrong.', 'You should not be seeing this.')
         drawn = self.deck.pop(random.randrange(len(self.deck)))
-        if self.cards[drawn][1] != "": #if the card has an image...
+        if self.img_mode and (self.cards[drawn][1] != ""): #if we're allowing images and there could be an image...
             front = random.choice([drawn, self.cards[drawn][1]])
         else:
             front = drawn
