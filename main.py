@@ -106,7 +106,7 @@ class MainMenu(arcade.View):
             self.course_box.add(button.with_space_around(bottom=20))
         self.course_box_anchor = arcade.gui.UIAnchorWidget(anchor_x = "center_x", anchor_y = "center_y", child=self.course_box)
         self.module_box_anchor = arcade.gui.UIAnchorWidget(anchor_x = "center_x", anchor_y = "center_y", child=self.module_box)
-        self.control_box_anchor = arcade.gui.UIAnchorWidget(anchor_x = "center_x", anchor_y =  "bottom", child=self.control_box)
+        self.control_box_anchor = arcade.gui.UIAnchorWidget(anchor_x = "center_x", anchor_y =  "bottom", align_y = 100, child=self.control_box)
         
         self.manager.add(self.course_box_anchor)
         
@@ -131,7 +131,6 @@ class MainMenu(arcade.View):
                 self.manager.add(self.module_box_anchor)
             elif IS_RUNNING and not self.started: #If the game has started but we haven't setup yet
                 self.manager.remove(self.module_box_anchor)
-                #TODO:
                 global DECK
                 DECK = FlashcardDeck(TARG_MODULE) #create the deck!
                 DECK.draw() #draw our first card
@@ -145,7 +144,7 @@ class MainMenu(arcade.View):
                 if not DECK.is_flipped: #If the card hasn't been flipped yet
                     if DECK.discard[DECK.curr_place][0][-3:] not in ['png', 'jpg']: #If it's not an image
                         arcade.draw_text(text=DECK.discard[DECK.curr_place][0], start_x= SCREEN_WIDTH / 2, start_y= SCREEN_HEIGHT / 2, color= arcade.color.BLACK, font_size= DEFAULT_FONT_SIZE * 2, width= SCREEN_WIDTH, anchor_x= "center", anchor_y= "center", multiline= True)
-                    else: #TODO: If it is an image
+                    else: #If it is an image
                         img = arcade.load_texture(os.getcwd() + "/Classes/" + TARG_COURSE + "/images/" + DECK.discard[DECK.curr_place][0])
                         img.draw_scaled(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, scale= min(SCREEN_WIDTH / img.width, SCREEN_HEIGHT / img.height))
                 else: #If we're looking at the answer side
